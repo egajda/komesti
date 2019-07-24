@@ -13,10 +13,10 @@ module.exports = (env, options) => ({
     ]
   },
   entry: {
-    './js/app.js': glob.sync('./vendor/**/*.js').concat(['./js/app.js'])
+    app: './js/app.tsx'
   },
   output: {
-    filename: 'app.tsx',
+    filename: 'app.js',
     path: path.resolve(__dirname, '../priv/static/js')
   },
   module: {
@@ -37,5 +37,8 @@ module.exports = (env, options) => ({
   plugins: [
     new MiniCssExtractPlugin({ filename: '../css/app.css' }),
     new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
-  ]
+  ],
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
+  }
 });

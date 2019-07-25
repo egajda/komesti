@@ -13,6 +13,12 @@ defmodule KomestiWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/api", KomestiWeb do
+    pipe_through :api
+
+    resources "/eateries", EateryController, except: [:new, :edit]
+  end
+
   scope "/", KomestiWeb do
     pipe_through :browser
 

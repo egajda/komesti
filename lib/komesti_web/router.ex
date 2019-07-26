@@ -16,7 +16,7 @@ defmodule KomestiWeb.Router do
   scope "/api", KomestiWeb do
     pipe_through :api
 
-    resources "/eateries", EateryController, except: [:new, :edit]
+    resources "/eateries", EateryController, except: [:new, :edit], param: "slug"
   end
 
   scope "/", KomestiWeb do

@@ -4,6 +4,8 @@ defmodule KomestiWeb.EateryController do
   alias Komesti.Seller
   alias Komesti.Seller.Eatery
 
+  alias Komesti.Repo
+
   action_fallback KomestiWeb.FallbackController
 
   def index(conn, _params) do
@@ -20,21 +22,24 @@ defmodule KomestiWeb.EateryController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    eatery = Seller.get_eatery!(id)
+  def show(conn, %{"slug" => slug}) do
+    #eatery = Seller.get_eatery!(id)
+    eatery = Repo.get_by!(Eatery, slug: slug)
     render(conn, "show.json", eatery: eatery)
   end
 
-  def update(conn, %{"id" => id, "eatery" => eatery_params}) do
-    eatery = Seller.get_eatery!(id)
+  def update(conn, %{"slug" => slug, "eatery" => eatery_params}) do
+    #eatery = Seller.get_eatery!(id)
+    eatery = Repo.get_by!(Eatery, slug: slug)
 
     with {:ok, %Eatery{} = eatery} <- Seller.update_eatery(eatery, eatery_params) do
       render(conn, "show.json", eatery: eatery)
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    eatery = Seller.get_eatery!(id)
+  def delete(conn, %{"slug" => slug}) do
+    #eatery = Seller.get_eatery!(id)
+    eatery = Repo.get_by!(Eatery, slug: slug)
 
     with {:ok, %Eatery{}} <- Seller.delete_eatery(eatery) do
       send_resp(conn, :no_content, "")

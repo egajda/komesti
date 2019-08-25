@@ -7,6 +7,7 @@ defmodule Komesti.Seller.Eatery do
   schema "eateries" do
     field :name, :string
     field :slug, :string
+    has_one :hour, Komesti.Seller.Hour
 
     timestamps()
   end
